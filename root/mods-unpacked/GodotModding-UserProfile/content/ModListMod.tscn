@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://mods-unpacked/KANA-UserProfile/content/ModListMod.gd" type="Script" id=1]
+[ext_resource path="res://mods-unpacked/KANA-UserProfile/assets/fonts/text.tres" type="DynamicFont" id=2]
+
+[node name="ModListMod" type="HBoxContainer"]
+margin_right = 1880.0
+size_flags_horizontal = 3
+script = ExtResource( 1 )
+color_mandatory = Color( 0.521569, 0.521569, 0.521569, 1 )
+
+[node name="ModID" type="Label" parent="."]
+unique_name_in_owner = true
+margin_top = 3.0
+margin_right = 938.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+custom_colors/font_color = Color( 0.741176, 0.741176, 0.741176, 1 )
+custom_fonts/font = ExtResource( 2 )
+text = "%MODNAME%"
+
+[node name="CheckBox" type="CheckBox" parent="."]
+unique_name_in_owner = true
+margin_left = 942.0
+margin_right = 1880.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+
+[connection signal="pressed" from="CheckBox" to="." method="_on_CheckBox_pressed"]
+[connection signal="toggled" from="CheckBox" to="." method="_on_CheckBox_toggled"]

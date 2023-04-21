@@ -1,0 +1,40 @@
+{
+	"name": "UserProfile",
+	"namespace": "GodotModding",
+	"version_number": "0.1.0",
+	"description": "Example Mod for User Profiles",
+	"website_url": "https://github.com/GodotModding",
+	"dependencies": [
+
+	],
+	"extra": {
+		"godot": {
+			"authors": [
+				"GodotModding"
+			],
+			"optional_dependencies": [
+
+			],
+			"compatible_game_version": [
+
+			],
+			"compatible_mod_loader_version": [
+				"6.0.0"
+			],
+			"incompatibilities": [
+
+			],
+			"load_before": [
+
+			],
+			"tags": [
+
+			],
+			"config_defaults": {
+
+			},
+			"description_rich": "",
+			"image": null
+		}
+	}
+}
