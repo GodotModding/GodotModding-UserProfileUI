@@ -1,10 +1,10 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://mods-unpacked/KANA-UserProfile/content/UserProfiles.gd" type="Script" id=1]
-[ext_resource path="res://mods-unpacked/KANA-UserProfile/assets/shader/blur.tres" type="Shader" id=2]
-[ext_resource path="res://mods-unpacked/KANA-UserProfile/content/ModList.tscn" type="PackedScene" id=3]
-[ext_resource path="res://mods-unpacked/KANA-UserProfile/assets/fonts/Heading.tres" type="DynamicFont" id=4]
-[ext_resource path="res://mods-unpacked/KANA-UserProfile/assets/fonts/text.tres" type="DynamicFont" id=5]
+[ext_resource path="res://mods-unpacked/GodotModding-UserProfile/content/UserProfiles.gd" type="Script" id=1]
+[ext_resource path="res://mods-unpacked/GodotModding-UserProfile/assets/shader/blur.tres" type="Shader" id=2]
+[ext_resource path="res://mods-unpacked/GodotModding-UserProfile/content/ModList.tscn" type="PackedScene" id=3]
+[ext_resource path="res://mods-unpacked/GodotModding-UserProfile/assets/fonts/Heading.tres" type="DynamicFont" id=4]
+[ext_resource path="res://mods-unpacked/GodotModding-UserProfile/assets/fonts/text.tres" type="DynamicFont" id=5]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 2 )

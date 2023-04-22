@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://mods-unpacked/KANA-UserProfile/content/ModListMod.gd" type="Script" id=1]
-[ext_resource path="res://mods-unpacked/KANA-UserProfile/assets/fonts/text.tres" type="DynamicFont" id=2]
+[ext_resource path="res://mods-unpacked/GodotModding-UserProfile/content/ModListMod.gd" type="Script" id=1]
+[ext_resource path="res://mods-unpacked/GodotModding-UserProfile/assets/fonts/text.tres" type="DynamicFont" id=2]
 
 [node name="ModListMod" type="HBoxContainer"]
 margin_right = 1880.0

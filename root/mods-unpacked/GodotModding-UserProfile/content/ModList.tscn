@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://mods-unpacked/KANA-UserProfile/content/ModList.gd" type="Script" id=1]
-[ext_resource path="res://mods-unpacked/KANA-UserProfile/content/ModListMod.tscn" type="PackedScene" id=2]
-[ext_resource path="res://mods-unpacked/KANA-UserProfile/assets/fonts/Heading.tres" type="DynamicFont" id=3]
+[ext_resource path="res://mods-unpacked/GodotModding-UserProfile/content/ModList.gd" type="Script" id=1]
+[ext_resource path="res://mods-unpacked/GodotModding-UserProfile/content/ModListMod.tscn" type="PackedScene" id=2]
+[ext_resource path="res://mods-unpacked/GodotModding-UserProfile/assets/fonts/Heading.tres" type="DynamicFont" id=3]
 
 [node name="ModList" type="MarginContainer"]
 margin_left = 20.0
