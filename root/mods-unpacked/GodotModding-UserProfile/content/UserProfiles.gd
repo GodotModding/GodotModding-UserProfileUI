@@ -8,6 +8,7 @@ export(String) var text_profile_select_error := "There was an error selecting th
 export(String) var text_profile_delete_error := "There was an error deleting the profile - check logs"
 export(String) var text_mod_enable_error := "There was an error enabling the mod - check logs"
 export(String) var text_mod_disable_error := "There was an error disabling the mod - check logs"
+export(String) var text_mod_current_config_change_error := "There was an error changing the config - check logs"
 export(String) var text_current_profile := " (Current Profile)"
 
 onready var user_profile_sections := $"%UserProfileSections"
@@ -57,9 +58,8 @@ func _populate_profile_select() -> void:
 
 func _generate_user_profile_section() -> void:
 	for section in user_profile_sections.get_children():
-		section.section_name = section.section_name
-		section.clear_mod_list()
-		section.generate_mod_list(ModLoaderUserProfile.get_current())
+		section.clear_grid()
+		section.generate_grid(ModLoaderUserProfile.get_current())
 
 
 func _on_ButtonNewProfile_pressed() -> void:
@@ -95,7 +95,17 @@ func _on_ButtonProfileNameSubmit_pressed() -> void:
 	popup_new_profile.hide()
 
 
-func _mod_is_active_changed(mod_id: String, is_active: bool) -> void:
+func _on_ProfileSelect_item_selected(index: int) -> void:
+	if not ModLoaderUserProfile.set_profile(profile_select.get_item_text(index)):
+		info_text.text = text_profile_select_error
+		return
+
+	_update_ui()
+
+	info_text.text = text_restart
+
+
+func _on_ModList_mod_is_active_changed(mod_id: String, is_active: bool)  -> void:
 	if is_active:
 		if not ModLoaderUserProfile.enable_mod(mod_id):
 			info_text.text = text_mod_enable_error
@@ -108,11 +118,8 @@ func _mod_is_active_changed(mod_id: String, is_active: bool) -> void:
 	info_text.text = text_restart
 
 
-func _on_ProfileSelect_item_selected(index: int) -> void:
-	if not ModLoaderUserProfile.set_profile(profile_select.get_item_text(index)):
-		info_text.text = text_profile_select_error
-		return
+func _on_ModList_mod_current_config_changed(mod_id: String, current_config_name: String):
+	var is_success := ModLoaderConfig.set_current_mod_config(mod_id, current_config_name)
 
-	_update_ui()
-
-	info_text.text = text_restart
+	if not is_success:
+		info_text.text = text_mod_current_config_change_error
