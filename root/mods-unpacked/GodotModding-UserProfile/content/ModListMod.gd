@@ -5,6 +5,8 @@ signal is_active_toggled(mod_id, is_active)
 
 export(Color) var color_error = Color.indianred
 export(Color) var color_mandatory = Color.darkgray
+enum CONTROL_TYPES { ACTIVE_TOGGLE, CONFIG_SELECTION }
+export(CONTROL_TYPES) var current_control_type
 
 var mod_id := "" setget _set_mod_id
 var is_active: bool setget _set_is_active
@@ -12,6 +14,7 @@ var is_disabled := false setget _set_is_disabled
 
 onready var mod_id_label = $"%ModID"
 onready var check_box = $"%CheckBox"
+onready var config_selection = $"%ConfigSelection"
 
 
 func set_error_color() -> void:
@@ -29,6 +32,13 @@ func _set_label_color(color: Color) -> void:
 func _set_mod_id(new_mod_id: String) -> void:
 	mod_id = new_mod_id
 	mod_id_label.text = new_mod_id
+	populate_current_config_selection(new_mod_id)
+
+
+func populate_current_config_selection(mod_id: String) -> void:
+	var configs := ModLoaderConfig.get_mod_configs(mod_id)
+	for config in configs:
+		config_selection.add_item(config.name)
 
 
 func _set_is_active(new_is_active: bool) -> void:

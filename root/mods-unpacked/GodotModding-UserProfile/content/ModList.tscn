@@ -26,7 +26,7 @@ margin_bottom = 19.0
 custom_fonts/font = ExtResource( 3 )
 text = "Active Mods"
 
-[node name="ModList" type="VBoxContainer" parent="VBoxContainer"]
+[node name="ModLists" type="VBoxContainer" parent="VBoxContainer"]
 unique_name_in_owner = true
 margin_top = 23.0
 margin_right = 1880.0

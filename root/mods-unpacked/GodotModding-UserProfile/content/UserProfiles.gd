@@ -56,8 +56,10 @@ func _populate_profile_select() -> void:
 
 
 func _generate_user_profile_section() -> void:
-	mod_list.clear_mod_list()
-	mod_list.generate_mod_list(ModLoaderUserProfile.get_current())
+	for section in user_profile_sections.get_children():
+		section.section_name = section.section_name
+		section.clear_mod_list()
+		section.generate_mod_list(ModLoaderUserProfile.get_current())
 
 
 func _on_ButtonNewProfile_pressed() -> void:

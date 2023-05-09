@@ -4,34 +4,75 @@
 	"version_number": "0.1.0",
 	"description": "Example Mod for User Profiles",
 	"website_url": "https://github.com/GodotModding",
-	"dependencies": [
-
-	],
+	"dependencies": [],
 	"extra": {
 		"godot": {
 			"authors": [
 				"GodotModding"
 			],
-			"optional_dependencies": [
-
-			],
-			"compatible_game_version": [
-
-			],
+			"optional_dependencies": [],
+			"compatible_game_version": [],
 			"compatible_mod_loader_version": [
 				"6.0.0"
 			],
-			"incompatibilities": [
-
-			],
-			"load_before": [
-
-			],
-			"tags": [
-
-			],
-			"config_defaults": {
-
+			"incompatibilities": [],
+			"load_before": [],
+			"tags": [],
+			"config_schema": {
+				"title": "Config",
+				"description": "Config for this Mod",
+				"type": "object",
+				"properties": {
+					"material_settings": {
+						"title": "Material Settings",
+						"type": "object",
+						"properties": {
+							"square_scale": {
+								"type": "number",
+								"title": "Square Scale",
+								"minimum": 0.0,
+								"maximum": 0.3,
+								"multipleOf": 0.001,
+								"default": 0.1
+							},
+							"animate": {
+								"type": "boolean",
+								"title": "Animate",
+								"default": false
+							},
+							"bluer_amount": {
+								"type": "number",
+								"title": "Bluer Amount",
+								"minimum": 0.0,
+								"maximum": 10.0,
+								"multipleOf": 0.1,
+								"default": 5.1
+							},
+							"mix_amount": {
+								"type": "number",
+								"title": "Mix Amount",
+								"minimum": 0.0,
+								"maximum": 1.0,
+								"multipleOf": 0.01,
+								"default": 0.71
+							},
+							"color": {
+								"type": "array",
+								"title": "Color Over",
+								"prefixItems": [
+									{ "type": "number", "minimum": 0, "maximum": 255 },
+									{ "type": "number", "minimum": 0, "maximum": 255 },
+									{ "type": "number", "minimum": 0, "maximum": 255 },
+									{ "type": "number", "minimum": 0, "maximum": 255 }
+								],
+								"items": false,
+								"minItems": 3,
+								"maxItems": 4,
+								"default": [0, 0, 0, 255]
+							}
+						}
+					}
+				}
 			},
 			"description_rich": "",
 			"image": null

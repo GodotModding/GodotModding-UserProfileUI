@@ -13,7 +13,7 @@ shader_param/animate = false
 shader_param/square_scale = 0.1
 shader_param/blur_amount = 5.061
 shader_param/mix_amount = 0.705
-shader_param/color_over = null
+shader_param/color_over = Color( 0, 0, 0, 1 )
 
 [sub_resource type="ImageTexture" id=4]
 
@@ -131,6 +131,19 @@ margin_left = 0.0
 margin_top = 0.0
 margin_right = 460.0
 margin_bottom = 43.0
+section_name = "Active Mods"
+
+[node name="VBoxContainer" parent="MarginContainer/VBoxContainer/ProfileSettings/ScrollContainer/VBoxContainer/UserProfileSections/ModList" index="0"]
+margin_right = 460.0
+margin_bottom = 33.0
+
+[node name="ModList2" parent="MarginContainer/VBoxContainer/ProfileSettings/ScrollContainer/VBoxContainer/UserProfileSections" instance=ExtResource( 3 )]
+unique_name_in_owner = true
+margin_left = 0.0
+margin_top = 0.0
+margin_right = 460.0
+margin_bottom = 43.0
+section_name = "Mod Configs"
 
 [node name="InfoText" type="Label" parent="MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
@@ -203,5 +216,6 @@ text = "OK"
 [connection signal="item_selected" from="MarginContainer/VBoxContainer/ProfileSelection/ProfileSelect" to="." method="_on_ProfileSelect_item_selected"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/ProfileSelection/ButtonNewProfile" to="." method="_on_ButtonNewProfile_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/ProfileSelection/ButtonDeleteProfile" to="." method="_on_ButtonDeleteProfile_pressed"]
-[connection signal="mod_is_active_changed" from="MarginContainer/VBoxContainer/ProfileSettings/ScrollContainer/VBoxContainer/UserProfileSections/ModList" to="." method="_mod_is_active_changed"]
 [connection signal="pressed" from="PopupNewProfile/MarginContainer/VBoxContainer/VBoxContainer/ButtonProfileNameSubmit" to="." method="_on_ButtonProfileNameSubmit_pressed"]
+
+[editable path="MarginContainer/VBoxContainer/ProfileSettings/ScrollContainer/VBoxContainer/UserProfileSections/ModList"]

@@ -4,16 +4,16 @@ extends MarginContainer
 signal mod_is_active_changed(mod_id, is_active)
 
 export(PackedScene) var mod_list_mod
+export(String) var section_name := "" setget _set_section_name
 
-var section_name := "" setget _set_section_name
-
-onready var user_profile_name := $"%SectionName"
-onready var mod_list = $"%ModList"
+onready var label_section_name := $"%SectionName"
+onready var mod_list = $"%ModLists"
 
 
 func _set_section_name(new_name: String) -> void:
 	section_name = new_name
-	user_profile_name.text = new_name
+	if label_section_name:
+		label_section_name.text = new_name
 
 
 func generate_mod_list(user_profile: ModLoaderUserProfile.Profile) -> void:
@@ -23,7 +23,7 @@ func generate_mod_list(user_profile: ModLoaderUserProfile.Profile) -> void:
 		new_mod_list_mod.connect("is_active_toggled", self, "_on_mod_is_active_toggled")
 		mod_list.add_child(new_mod_list_mod)
 		new_mod_list_mod.mod_id = mod_id
-		new_mod_list_mod.is_active = user_profile.mod_list[mod_id]
+		new_mod_list_mod.is_active = user_profile.mod_list[mod_id].is_active
 
 		if ModLoaderStore.mod_data.has(mod_id):
 			var mod: ModData = ModLoaderStore.mod_data[mod_id]
