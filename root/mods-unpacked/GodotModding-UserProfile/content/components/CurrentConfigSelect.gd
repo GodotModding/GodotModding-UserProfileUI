@@ -8,17 +8,17 @@ var mod_id: String
 var config_names := {}
 
 
-func add_mod_configs(mod_configs: Array) -> void:
+func add_mod_configs(mod_configs: Dictionary) -> void:
 	var index := 0
-	for config in mod_configs:
-		config_names[config.name] = index
-		self.add_item(config.name)
+	for config_name in mod_configs.keys():
+		config_names[config_name] = index
+		add_item(config_name)
 		index = index + 1
 
 
 func select_item(item_text: String) -> void:
-	self.select(config_names[item_text])
+	select(config_names[item_text])
 
 
 func _on_CurrentConfigSelect_item_selected(index) -> void:
-	emit_signal("current_config_selected", mod_id, self.get_item_text(index))
+	emit_signal("current_config_selected", mod_id, get_item_text(index))

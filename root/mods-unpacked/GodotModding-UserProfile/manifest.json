@@ -1,7 +1,7 @@
 {
 	"name": "UserProfile",
 	"namespace": "GodotModding",
-	"version_number": "0.1.0",
+	"version_number": "0.2.0",
 	"description": "Example Mod for User Profiles",
 	"website_url": "https://github.com/GodotModding",
 	"dependencies": [],
@@ -19,10 +19,16 @@
 			"load_before": [],
 			"tags": [],
 			"config_schema": {
+				"$schema": "https://json-schema.org/draft/2020-12/schema",
 				"title": "Config",
 				"description": "Config for this Mod",
 				"type": "object",
 				"properties": {
+					"select_profile_text": {
+						"title": "Select profile text:",
+						"type": "string",
+						"default": "Select Profile"
+					},
 					"material_settings": {
 						"title": "Material Settings",
 						"type": "object",
@@ -40,9 +46,9 @@
 								"title": "Animate",
 								"default": false
 							},
-							"bluer_amount": {
+							"blur_amount": {
 								"type": "number",
-								"title": "Bluer Amount",
+								"title": "Blur Amount",
 								"minimum": 0.0,
 								"maximum": 10.0,
 								"multipleOf": 0.1,
@@ -57,18 +63,10 @@
 								"default": 0.71
 							},
 							"color": {
-								"type": "array",
+								"type": "string",
 								"title": "Color Over",
-								"prefixItems": [
-									{ "type": "number", "minimum": 0, "maximum": 255 },
-									{ "type": "number", "minimum": 0, "maximum": 255 },
-									{ "type": "number", "minimum": 0, "maximum": 255 },
-									{ "type": "number", "minimum": 0, "maximum": 255 }
-								],
-								"items": false,
-								"minItems": 3,
-								"maxItems": 4,
-								"default": [0, 0, 0, 255]
+								"format": "color",
+								"default": "#f7000000"
 							}
 						}
 					}

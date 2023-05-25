@@ -17,7 +17,7 @@ func generate_grid(user_profile: ModLoaderUserProfile.Profile) -> void:
 	for mod_id in user_profile.mod_list.keys():
 		_generate_mod_name(mod_id)
 		_generate_mod_active_state(mod_id, user_profile)
-		if not ModLoaderStore.mod_data[mod_id].configs.empty():
+		if ModLoaderStore.mod_data.has(mod_id) and not ModLoaderStore.mod_data[mod_id].configs.empty():
 			_generate_mod_current_config(mod_id, user_profile)
 		else:
 			grid.add_child(grid_placeholder.new())
@@ -68,7 +68,7 @@ func clear_grid() -> void:
 	for child in grid.get_children():
 		if not child is Label or child is ModIdLabel:
 			grid.remove_child(child)
-			child.free()
+			child.queue_free()
 
 
 func _on_mod_is_active_toggled(mod_id: String, is_active: bool) -> void:
