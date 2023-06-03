@@ -49,5 +49,4 @@ func apply_config(config: ModConfig) -> void:
 
 func _on_current_config_changed(config: ModConfig) -> void:
 	if config.mod_id == GodotModding_User_Profile_MOD_DIR:
-		ModLoaderLog.debug("HHHHHEEEEEEEEYYYY - My config changed to %s" % config.name, GodotModding_User_Profile_LOG_NAME)
 		apply_config(config)
