@@ -85,7 +85,7 @@ func _on_ButtonNewProfile_pressed() -> void:
 func _on_ButtonDeleteProfile_pressed():
 	var profile_to_delete := ModLoaderStore.current_user_profile
 	# Switch to default profile
-	if not ModLoaderUserProfile.set_profile(ModLoaderConfig.DEFAULT_CONFIG_NAME):
+	if not ModLoaderUserProfile.set_profile(ModLoaderUserProfile.get_profile("default")):
 		info_text.text = text_profile_select_error
 		return
 	# Delete the profile
@@ -112,7 +112,8 @@ func _on_ButtonProfileNameSubmit_pressed() -> void:
 
 
 func _on_ProfileSelect_item_selected(index: int) -> void:
-	if not ModLoaderUserProfile.set_profile(profile_select.get_item_text(index)):
+	var user_profile := ModLoaderUserProfile.get_profile(profile_select.get_item_text(index))
+	if not ModLoaderUserProfile.set_profile(user_profile):
 		info_text.text = text_profile_select_error
 		return
 
