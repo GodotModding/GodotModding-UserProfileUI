@@ -61,7 +61,7 @@ func _populate_profile_select() -> void:
 	profile_select.clear()
 
 	for user_profile in ModLoaderUserProfile.get_all_as_array():
-		var is_current_profile := true if ModLoaderStore.current_user_profile == user_profile.name else false
+		var is_current_profile := true if ModLoaderUserProfile.get_current().name == user_profile.name else false
 		profile_select.add_item(user_profile.name + text_current_profile if is_current_profile else user_profile.name)
 
 		# Get the item index of the current profile
