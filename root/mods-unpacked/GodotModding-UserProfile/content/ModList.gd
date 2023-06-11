@@ -13,7 +13,7 @@ var grid_placeholder := Control
 onready var grid = $"%Grid"
 
 
-func generate_grid(user_profile: ModLoaderUserProfile.Profile) -> void:
+func generate_grid(user_profile: ModUserProfile) -> void:
 	for mod_id in user_profile.mod_list.keys():
 		_generate_mod_name(mod_id)
 		_generate_mod_active_state(mod_id, user_profile)
@@ -40,7 +40,7 @@ func _generate_mod_name(mod_id: String) -> void:
 			label_mod_id.set_error_color()
 
 
-func _generate_mod_active_state(mod_id: String, user_profile: ModLoaderUserProfile.Profile) -> void:
+func _generate_mod_active_state(mod_id: String, user_profile: ModUserProfile) -> void:
 	var is_active_toggle: IsActiveToggle = is_active_toggle_scene.instance()
 	grid.add_child(is_active_toggle)
 	is_active_toggle.mod_id = mod_id
@@ -55,7 +55,7 @@ func _generate_mod_active_state(mod_id: String, user_profile: ModLoaderUserProfi
 			is_active_toggle.disabled = true
 
 
-func _generate_mod_current_config(mod_id: String, user_profile: ModLoaderUserProfile.Profile) -> void:
+func _generate_mod_current_config(mod_id: String, user_profile: ModUserProfile) -> void:
 	var current_config_select: CurrentConfigSelect = current_config_select_scene.instance()
 	grid.add_child(current_config_select)
 	current_config_select.mod_id = mod_id
