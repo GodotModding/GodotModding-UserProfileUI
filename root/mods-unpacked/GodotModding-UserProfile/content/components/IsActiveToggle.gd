@@ -14,4 +14,5 @@ func _set_is_active(new_is_active: bool) -> void:
 
 
 func _on_IsActiveToggle_pressed() -> void:
+	is_active = !is_active
 	emit_signal("is_active_toggled", mod_id, is_active)
