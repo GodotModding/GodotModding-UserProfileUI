@@ -21,4 +21,4 @@ func select_item(item_text: String) -> void:
 
 
 func _on_CurrentConfigSelect_item_selected(index) -> void:
-	emit_signal("current_config_selected", mod_id, get_item_text(index))
+	current_config_selected.emit(mod_id, get_item_text(index))

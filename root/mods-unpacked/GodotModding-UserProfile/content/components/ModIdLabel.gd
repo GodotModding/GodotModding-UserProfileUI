@@ -2,8 +2,8 @@ class_name ModIdLabel
 extends Label
 
 
-export(Color) var color_error = Color.indianred
-export(Color) var color_mandatory = Color.darkgray
+@export var color_error = Color.INDIAN_RED
+@export var color_mandatory = Color.DARK_GRAY
 
 var mod_id: String
 
@@ -17,4 +17,4 @@ func set_mandatory_color() -> void:
 
 
 func _set_label_color(color: Color) -> void:
-	self.add_color_override("font_color", color)
+	self.add_theme_color_override("font_color", color)

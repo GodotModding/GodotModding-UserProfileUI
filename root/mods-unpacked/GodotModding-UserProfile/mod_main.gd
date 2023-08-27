@@ -8,12 +8,12 @@ var mod_dir_path := ""
 var extensions_dir_path := ""
 var translations_dir_path := ""
 
-onready var user_profile_dialog = load("res://mods-unpacked/GodotModding-UserProfile/content/UserProfiles.tscn").instance()
+@onready var user_profile_dialog = load("res://mods-unpacked/GodotModding-UserProfile/content/UserProfiles.tscn").instantiate()
 
 
 func _init(modLoader = ModLoader) -> void:
 	ModLoaderLog.info("Init", GodotModding_User_Profile_LOG_NAME)
-	mod_dir_path = ModLoaderMod.get_unpacked_dir().plus_file(GodotModding_User_Profile_MOD_DIR)
+	mod_dir_path = ModLoaderMod.get_unpacked_dir().path_join(GodotModding_User_Profile_MOD_DIR)
 
 	# Add extensions
 	install_script_extensions(modLoader)
@@ -23,11 +23,11 @@ func _init(modLoader = ModLoader) -> void:
 
 
 func install_script_extensions(modLoader) -> void:
-	extensions_dir_path = mod_dir_path.plus_file("extensions")
+	extensions_dir_path = mod_dir_path.path_join("extensions")
 
 
 func add_translations(modLoader) -> void:
-	translations_dir_path = mod_dir_path.plus_file("translations")
+	translations_dir_path = mod_dir_path.path_join("translations")
 
 
 func _ready():
@@ -39,7 +39,7 @@ func _ready():
 func handle_config() -> void:
 	# Get the mod config
 	var config := ModLoaderConfig.get_current_config(GodotModding_User_Profile_MOD_DIR)
-	ModLoader.connect("current_config_changed", self, "_on_current_config_changed")
+	ModLoader.current_config_changed.connect(_on_current_config_changed)
 	apply_config(config)
 
 
