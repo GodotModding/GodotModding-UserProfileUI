@@ -32,7 +32,6 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey:
 		if event.pressed and event.keycode == KEY_U:
-			print("pressed U")
 			hide() if visible else show()
 
 	# Click outside handling
