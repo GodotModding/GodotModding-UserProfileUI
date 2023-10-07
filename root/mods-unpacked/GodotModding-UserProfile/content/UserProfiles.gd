@@ -1,38 +1,44 @@
-extends WindowDialog
+extends PanelContainer
 
 
-export(PackedScene) var user_profile_section: PackedScene
-export(String) var text_select_profile := "Select Profile"
-export(String) var text_restart := "A game restart is required to apply the settings"
-export(String) var text_profile_create_error := "There was an error creating the profile - check logs"
-export(String) var text_profile_select_error := "There was an error selecting the profile - check logs"
-export(String) var text_profile_delete_error := "There was an error deleting the profile - check logs"
-export(String) var text_mod_enable_error := "There was an error enabling the mod - check logs"
-export(String) var text_mod_disable_error := "There was an error disabling the mod - check logs"
-export(String) var text_mod_current_config_change_error := "There was an error changing the config - check logs"
-export(String) var text_current_profile := " (Current Profile)"
+@export var user_profile_section: PackedScene
+@export var text_select_profile := "Select Profile"
+@export var text_restart := "A game restart is required to apply the settings"
+@export var text_profile_create_error := "There was an error creating the profile - check logs"
+@export var text_profile_select_error := "There was an error selecting the profile - check logs"
+@export var text_profile_delete_error := "There was an error deleting the profile - check logs"
+@export var text_mod_enable_error := "There was an error enabling the mod - check logs"
+@export var text_mod_disable_error := "There was an error disabling the mod - check logs"
+@export var text_mod_current_config_change_error := "There was an error changing the config - check logs"
+@export var text_current_profile := " (Current Profile)"
 
-onready var label_select_profile: Label = $"%LabelSelectProfile"
-onready var user_profile_sections := $"%UserProfileSections"
-onready var profile_select = $"%ProfileSelect"
-onready var popup_new_profile = $"%PopupNewProfile"
-onready var input_profile_name = $"%InputProfileName"
-onready var button_profile_name_submit = $"%ButtonProfileNameSubmit"
-onready var button_new_profile = $"%ButtonNewProfile"
-onready var info_text = $"%InfoText"
+@onready var label_select_profile: Label = $"%LabelSelectProfile"
+@onready var user_profile_sections := $"%UserProfileSections"
+@onready var profile_select = $"%ProfileSelect"
+@onready var popup_new_profile = $"%PopupNewProfile"
+@onready var input_profile_name = $"%InputProfileName"
+@onready var button_profile_name_submit = $"%ButtonProfileNameSubmit"
+@onready var button_new_profile = $"%ButtonNewProfile"
+@onready var info_text = $"%InfoText"
 
 
 func _ready() -> void:
 	_populate_profile_select()
 	_generate_user_profile_section()
 
-	ModLoader.connect("current_config_changed", self, "_on_ModLoader_current_config_changed")
+	ModLoader.connect("current_config_changed", Callable(self, "_on_ModLoader_current_config_changed"))
 
 
-func _input(event) -> void:
+func _input(event: InputEvent) -> void:
 	if event is InputEventKey:
-		if event.pressed and event.scancode == KEY_U:
-			popup_centered() if not visible else hide()
+		if event.pressed and event.keycode == KEY_U:
+			print("pressed U")
+			hide() if visible else show()
+
+	# Click outside handling
+	if event is InputEventMouseButton and event.is_pressed():
+		if not get_global_rect().has_point(get_global_mouse_position()):
+			hide()
 
 
 func apply_config(config: ModConfig) -> void:
@@ -40,11 +46,11 @@ func apply_config(config: ModConfig) -> void:
 
 	var material_settings: Dictionary = config.data.material_settings
 
-	material.set_shader_param("animate", material_settings.animate)
-	material.set_shader_param("square_scale", material_settings.square_scale)
-	material.set_shader_param("blur_amount", material_settings.blur_amount)
-	material.set_shader_param("mix_amount", material_settings.mix_amount)
-	material.set_shader_param("color_over", Color(material_settings.color))
+	material.set_shader_parameter("animate", material_settings.animate)
+	material.set_shader_parameter("square_scale", material_settings.square_scale)
+	material.set_shader_parameter("blur_amount", material_settings.blur_amount)
+	material.set_shader_parameter("mix_amount", material_settings.mix_amount)
+	material.set_shader_parameter("color_over", Color(material_settings.color))
 
 
 func _update_ui() -> void:
@@ -79,7 +85,7 @@ func _generate_user_profile_section() -> void:
 
 
 func _on_ButtonNewProfile_pressed() -> void:
-	popup_new_profile.popup_centered()
+	popup_new_profile.show()
 
 
 func _on_ButtonDeleteProfile_pressed():
