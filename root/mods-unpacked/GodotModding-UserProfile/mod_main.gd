@@ -11,22 +11,22 @@ var translations_dir_path := ""
 onready var user_profile_dialog = load("res://mods-unpacked/GodotModding-UserProfile/content/UserProfiles.tscn").instance()
 
 
-func _init(modLoader = ModLoader) -> void:
+func _init() -> void:
 	ModLoaderLog.info("Init", GodotModding_User_Profile_LOG_NAME)
 	mod_dir_path = ModLoaderMod.get_unpacked_dir().plus_file(GodotModding_User_Profile_MOD_DIR)
 
 	# Add extensions
-	install_script_extensions(modLoader)
+	install_script_extensions()
 
 	# Add translations
-	add_translations(modLoader)
+	add_translations()
 
 
-func install_script_extensions(modLoader) -> void:
+func install_script_extensions() -> void:
 	extensions_dir_path = mod_dir_path.plus_file("extensions")
 
 
-func add_translations(modLoader) -> void:
+func add_translations() -> void:
 	translations_dir_path = mod_dir_path.plus_file("translations")
 
 
