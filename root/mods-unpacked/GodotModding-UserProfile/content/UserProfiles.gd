@@ -1,10 +1,10 @@
 extends WindowDialog
 
-
 export(PackedScene) var user_profile_section: PackedScene
 export(String) var text_select_profile := "Select Profile"
 export(String) var text_restart := "A game restart is required to apply the settings"
 export(String) var text_profile_create_error := "There was an error creating the profile - check logs"
+export(String) var text_profile_rename_error := "There was an error renaming the profile - check logs"
 export(String) var text_profile_select_error := "There was an error selecting the profile - check logs"
 export(String) var text_profile_delete_error := "There was an error deleting the profile - check logs"
 export(String) var text_mod_enable_error := "There was an error enabling the mod - check logs"
@@ -16,15 +16,21 @@ onready var label_select_profile: Label = $"%LabelSelectProfile"
 onready var user_profile_sections := $"%UserProfileSections"
 onready var profile_select = $"%ProfileSelect"
 onready var popup_new_profile = $"%PopupNewProfile"
+onready var popup_rename_profile: WindowDialog = $"%PopupRenameProfile"
 onready var input_profile_name = $"%InputProfileName"
 onready var button_profile_name_submit = $"%ButtonProfileNameSubmit"
 onready var button_new_profile = $"%ButtonNewProfile"
 onready var info_text = $"%InfoText"
+onready var input_rename_profile_name: LineEdit = $"%InputRenameProfileName"
+
+var profile_selected: ModUserProfile
 
 
 func _ready() -> void:
 	_populate_profile_select()
 	_generate_user_profile_section()
+
+	profile_selected = ModLoaderUserProfile.get_current()
 
 	ModLoader.connect("current_config_changed", self, "_on_ModLoader_current_config_changed")
 
@@ -61,8 +67,14 @@ func _populate_profile_select() -> void:
 	profile_select.clear()
 
 	for user_profile in ModLoaderUserProfile.get_all_as_array():
-		var is_current_profile := true if ModLoaderUserProfile.get_current().name == user_profile.name else false
-		profile_select.add_item(user_profile.name + text_current_profile if is_current_profile else user_profile.name)
+		var is_current_profile := (
+			true
+			if ModLoaderUserProfile.get_current().name == user_profile.name
+			else false
+		)
+		profile_select.add_item(
+			user_profile.name + text_current_profile if is_current_profile else user_profile.name
+		)
 
 		# Get the item index of the current profile
 		if is_current_profile:
@@ -95,20 +107,37 @@ func _on_ButtonDeleteProfile_pressed():
 
 	_update_ui()
 
+	profile_selected = ModLoaderUserProfile.get_current()
 
-func _on_ButtonProfileNameSubmit_pressed() -> void:
-	# Create new User Profile
-	if not ModLoaderUserProfile.create_profile(input_profile_name.text):
-		# If there was an error creating the profile
-		# Add error message to the info text label
-		info_text.text = text_profile_create_error
-		# And return early
-		return
+
+func _on_ButtonRename_pressed() -> void:
+	popup_rename_profile.popup_centered()
+
+
+func _on_ButtonProfileNameSubmit_pressed(is_rename: bool) -> void:
+	if is_rename:
+		var success := ModLoaderUserProfile.rename_profile(
+			profile_selected.name, input_rename_profile_name.text
+		)
+		if not success:
+			info_text.text = text_profile_rename_error
+			return
+		# Close popup
+		popup_rename_profile.hide()
+	else:
+		# Create new User Profile
+		if not ModLoaderUserProfile.create_profile(input_profile_name.text):
+			# If there was an error creating the profile
+			# Add error message to the info text label
+			info_text.text = text_profile_create_error
+			# And return early
+			return
+		# Close popup
+		popup_new_profile.hide()
 
 	_update_ui()
 
-	# Close popup
-	popup_new_profile.hide()
+	profile_selected = ModLoaderUserProfile.get_current()
 
 
 func _on_ProfileSelect_item_selected(index: int) -> void:
@@ -117,12 +146,14 @@ func _on_ProfileSelect_item_selected(index: int) -> void:
 		info_text.text = text_profile_select_error
 		return
 
+	profile_selected = user_profile
+
 	_update_ui()
 
 	info_text.text = text_restart
 
 
-func _on_ModList_mod_is_active_changed(mod_id: String, is_active: bool)  -> void:
+func _on_ModList_mod_is_active_changed(mod_id: String, is_active: bool) -> void:
 	if is_active:
 		if not ModLoaderUserProfile.enable_mod(mod_id):
 			info_text.text = text_mod_enable_error
